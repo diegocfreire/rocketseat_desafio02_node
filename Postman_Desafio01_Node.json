@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "ed136800-1678-499d-8ff1-674cc923676c",
+		"name": "RocketSeat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Desafio 02 - Node",
+			"item": [
+				{
+					"name": "Listar Repositórios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/repositories",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"repositories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Novo Repositório",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Item 3\",\n\t\"url\": \"tres repositorio\",\n\t\"techs\": [\"node.js\", \"reactjs\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/repositories",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"repositories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Repositório",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/repositories/ff714868-262d-4a2b-bd70-9eba5ac9d193",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"repositories",
+								"ff714868-262d-4a2b-bd70-9eba5ac9d193"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Altera Repositório",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Repositório 2\",\n\t\"url\": \"www.globo.com\",\n\t\"techs\": [\"node.js\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/repositories/cd5baee8-1e16-411d-a601-0ca582858a60",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"repositories",
+								"cd5baee8-1e16-411d-a601-0ca582858a60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Novo Like Repositório",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/repositories/430d2998-c91e-4b5d-8068-635298308191/like",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"repositories",
+								"430d2998-c91e-4b5d-8068-635298308191",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
