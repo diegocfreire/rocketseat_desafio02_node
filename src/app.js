@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-repositories = [];
+const repositories = [];
 
 /**
  * GET: Lista todos os repositórios cadastrados.
@@ -23,17 +23,14 @@ app.get("/repositories", (req, res) => {
 app.post("/repositories", (req, res) => {
   const { title, url, techs } = req.body;
 
-  const r = {
-    "id": uuid(),
-    "title": title,
-    "url": url,
-    "techs": techs,
-    "likes": 0
-  }
+  const r = {"id": uuid(), title, url, techs, "likes": 0}
 
   repositories.push(r);
 
-  return res.json({message: 'Repositório adicionado com sucesso.'});
+  return res.json({
+    message: 'Repositório adicionado com sucesso.',
+    repositorio: r
+  });
 });
 
 /**
@@ -43,24 +40,37 @@ app.put("/repositories/:id", (req, res) => {
   const { title, url, techs } = req.body;
   const id = req.params.id;
 
-  const rIndex = repositories.findIndex(r => r.id == id);
+  const idx = repositories.findIndex(r => r.id == id);
 
-  repositories[rIndex].title = title;
-  repositories[rIndex].url = url;
-  repositories[rIndex].techs = techs;
+  if (idx < 0) {
+    return res.status(400).json({error: 'Repositório não encontrado.'});
+  }
 
-  return res.json({message: 'Repositório alterado com sucesso.'});
+  const r = {id, title, url, techs, likes: repositories[idx].likes};
+
+  repositories[idx] = r;
+
+  return res.json({
+    message: 'Repositório alterado com sucesso.',
+    repositorio: r
+  });
 });
 
 /**
  * DELETE: Remove um repositório pelo id informado
  */
 app.delete("/repositories/:id", (req, res) => {
-  repositories = repositories.filter(function(r) {
-    return r.id !== req.params.id
-  });
+  const id = req.params.id;
 
-  return res.json({message: 'Repositório removido com sucesso.'});
+  const idx = repositories.findIndex(r => r.id == id);
+
+  if (idx < 0) {
+    return res.status(400).json({error: 'Repositório não encontrado.'});
+  }
+
+  repositories.splice(idx,1);
+
+  return res.status(204).send();
 });
 
 /**
@@ -69,11 +79,14 @@ app.delete("/repositories/:id", (req, res) => {
 app.post("/repositories/:id/like", (req, res) => {
   const id = req.params.id;
 
-  const rIndex = repositories.findIndex(r => r.id == id);
+  const idx = repositories.findIndex(r => r.id == id);
 
-  repositories[rIndex].likes++;
+  repositories[idx].likes++;
 
-  return res.json({message: 'Like adicionado com sucesso.'});
+  return res.json({
+    message: 'Like adicionado com sucesso.',
+    repositorio: repositories[idx]
+  });
 });
 
 module.exports = app;
